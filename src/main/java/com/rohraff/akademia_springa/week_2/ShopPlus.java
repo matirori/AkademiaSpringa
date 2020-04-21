@@ -1,24 +1,22 @@
-package com.rohraff.akademia_springa.week_1;
+package com.rohraff.akademia_springa.week_2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-@Profile("pro")
-public class ShopPro implements Shop {
+@Component
+@Profile("plus")
+
+public class ShopPlus implements Shop {
 
     ShopList shopList;
 
     @Value("${shop-info.vat}")
     private double vat;
 
-    @Value("${shop-info.discount}")
-    private double discount;
-
     @Autowired
-    public ShopPro(ShopList shopList) {
+    public ShopPlus(ShopList shopList) {
         this.shopList = shopList;
     }
 
@@ -30,9 +28,8 @@ public class ShopPro implements Shop {
     @Override
     public void getPrice() {
         double bruttoValue = shopList.getCartPrice();
-        double bruttoValueAfterDiscount = bruttoValue * (1 - (discount/100));
         double vatValue = (bruttoValue/((vat/100)+1))*(vat/100);
-        System.out.print("Cena zbiorcza: " + bruttoValue + ", po zastosowaniu rabatu: "+ bruttoValueAfterDiscount + ", w tym VAT w kwocie: ");
+        System.out.print("Cena zbiorcza: " + bruttoValue + ", w tym VAT w kwocie: ");
         System.out.format("%.2f%n", vatValue);
     }
 }

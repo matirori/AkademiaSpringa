@@ -1,4 +1,4 @@
-package com.rohraff.akademia_springa.week_1;
+package com.rohraff.akademia_springa.week_2;
 
 public interface Shop {
     void start();

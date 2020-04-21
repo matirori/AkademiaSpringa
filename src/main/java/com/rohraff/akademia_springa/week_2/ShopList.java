@@ -1,4 +1,4 @@
-package com.rohraff.akademia_springa.week_1;
+package com.rohraff.akademia_springa.week_2;
 
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

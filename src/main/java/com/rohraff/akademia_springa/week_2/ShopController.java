@@ -1,4 +1,4 @@
-package com.rohraff.akademia_springa.week_1;
+package com.rohraff.akademia_springa.week_2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -15,7 +15,7 @@ public class ShopController {
         this.shop = shop;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
     private void startShop() {
         shop.start();
         shop.getPrice();
