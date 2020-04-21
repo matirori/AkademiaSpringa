@@ -15,10 +15,9 @@ public class ShopController {
         this.shop = shop;
     }
 
-    //@EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     private void startShop() {
         shop.start();
         shop.getPrice();
     }
 }
-
