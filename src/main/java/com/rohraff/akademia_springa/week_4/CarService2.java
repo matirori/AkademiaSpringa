@@ -23,12 +23,27 @@ public class CarService2 {
         return carList;
     }
 
-    public Car2 getCarById(int id) {
+    public Optional<Car2> getCarById(int id) {
         Optional<Car2> car = carList.stream().filter(car21 -> car21.getId() == id).findFirst();
-        if (car.isPresent()) {
+        return car;
+    }
+
+    public Car2 modifyCar(Car2 car2) {
+        Optional<Car2> car = carList.stream().filter(car21 -> car21.getId() == car2.getId()).findFirst();
+        if(car.isPresent()) {
+            if(car2.getMark() != "") {
+                car.get().setMark(car2.getMark());
+            }
+            if(car2.getModel() != "") {
+                car.get().setModel(car2.getModel());
+            }
+            if(car2.getColor() != "") {
+                car.get().setColor(car2.getColor());
+            }
             return car.get();
+        } else {
+            return car2;
         }
-        return null;
     }
 
     public boolean deleteCar(int id) {

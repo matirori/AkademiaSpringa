@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/week_4")
 public class CarController2 {
@@ -34,46 +37,25 @@ public class CarController2 {
 
     @GetMapping("/byId")
     public String getCarById(@ModelAttribute Car2 car, Model model) {
-        Car2 carById = carService.getCarById(car.getId());
-        model.addAttribute("car", carById);
-        if (carById != null) {
+        Optional<Car2> carById = carService.getCarById(car.getId());
+        if (carById.isPresent()) {
+            model.addAttribute("car", carById.get());
             return "carById";
+        } else {
+            return "carNotFound";
         }
-        return "carNotFound";
     }
 
     @GetMapping("/modify")
     public String modifyCar(@ModelAttribute Car2 car) {
-        Car2 carToModify = carService.getCarById(car.getId());
-        if (carToModify != null) {
-            carToModify.setColor(car.getColor());
-            carToModify.setMark(car.getMark());
-            carToModify.setModel(car.getModel());
+        Car2 modifiedCar = carService.modifyCar(car);
+        if (modifiedCar.equals(car)) {
+            return "carNotFound";
+        } else {
             return "redirect:/week_4";
         }
-        return "carNotFound";
-        }
-
-    @GetMapping("/modifyOneThing")
-    public String modifyOneThing(@ModelAttribute Car2 car) {
-        Car2 carToModify = carService.getCarById(car.getId());
-        String colorToChange = car.getColor();
-        String modelToChange = car.getModel();
-        String markToChange = car.getMark();
-        if (carToModify != null) {
-            if(colorToChange != null) {
-                carToModify.setColor(colorToChange);
-                return "redirect:/week_4";
-            } else if(modelToChange != null) {
-                carToModify.setModel(modelToChange);
-                return "redirect:/week_4";
-            } else if(markToChange != null) {
-                carToModify.setMark(markToChange);
-                return "redirect:/week_4";
-            }
-        }
-        return "carNotFound";
     }
+
 
     @GetMapping("/delete")
     public String deleteCar(@ModelAttribute Car2 car) {
